@@ -11,7 +11,7 @@ unavariable = {"a":123,"b":"cdef", "curso":"fghi", "rut":999}
 unavariable["edad"] = 99
 print(unavariable)
 #creando un conjunto de personas
-
+#comentario
 conjunto = []
 i=0
 while i<3:
