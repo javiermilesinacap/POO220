@@ -16,6 +16,10 @@ class Persona:
     nombre = ""
     def mostrarNombre(self):
         print("Mi nombre es: "+self.nombre)
+    def setEdad(self,edad):
+        self.edad = edad
+    def getEdad(self):
+        return(self.edad)
     def mostrarDatos(self):
         print("La persona se llama "+ str(self.nombre) + "de edad:"+ str(self.edad))
     def __init__(self, nombre ="", edad=0):
