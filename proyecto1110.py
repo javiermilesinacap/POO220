@@ -12,9 +12,11 @@ class Vehiculo:
         return f'Vehiculo({self.velocidad})'
     def acelerar(self):
         self.velocidad += 10
+        self.lat += 5
         self.__str__()
     def frenar(self):
         self.velocidad -=10
+        self.lat -= 5
         self.__str__()
     def avanzar(self):
         self.distancia += 10 + (self.velocidad/10 * self.distancia)
@@ -27,7 +29,9 @@ class Vehiculo:
         lonD = float(input("Ingrese lon destino en decimal"))
         circunf = math.pi * latD * 2
 objeto = Vehiculo()
+pygame.init()
 ventana = pygame.display.set_mode((800,600))
+autito = pygame.image.load("./car.png").convert_alpha()
 repr(objeto)
 while(True):
     for event in pygame.event.get():
@@ -37,4 +41,6 @@ while(True):
         if(event.type == pygame.KEYDOWN and event.key == pygame.K_s):
             objeto.frenar()
             print("la velocidad del vehiculo es: "+objeto.velocidad.__str__())
-    
+        ventana.fill((255,255,255))
+        ventana.blit(autito,(objeto.lat,objeto.lon))
+        pygame.display.update()
