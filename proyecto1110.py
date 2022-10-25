@@ -1,17 +1,18 @@
 import math
 import pygame
 class Vehiculo:
-    def __init__(self,velocidad=0, lat=0.0, lon=300.0):
+    def __init__(self,velocidad=0, lat=0.0, lon=300.0, imagen = './vehicle.png'):
         self.velocidad = velocidad
         self.lat = lat
         self.lon = lon
         self.distancia = 0
+        self.imagen = imagen
     def __str__(self) -> str:
         return(str(self.velocidad))
     def __repr__(self):
         return f'Vehiculo({self.velocidad})'
     def acelerar(self):
-        self.velocidad += 10
+        self.velocidad += 5
         self.lat += 5
         self.__str__()
     def frenar(self):
@@ -37,28 +38,34 @@ class Carretera:
     def setVelocidad(self,velocidad):
         self.velocidad = velocidad
 
-objeto = Vehiculo()
+player = Vehiculo(imagen ="./car.png" )
+enemigo = Vehiculo(imagen ="./car2.png", lat=800, lon=250 )
 fondo = Carretera()
 pygame.init()
 ventana = pygame.display.set_mode((800,600))
-autito = pygame.image.load("./car.png").convert_alpha()
+autito = pygame.image.load(player.imagen).convert_alpha()
+autito2 = pygame.image.load(enemigo.imagen).convert_alpha()
 carretera = pygame.image.load("./fondo.png").convert_alpha()
-repr(objeto)
+repr(player)
 while(True):
     for event in pygame.event.get():
         if(event.type == pygame.KEYDOWN and event.key == pygame.K_w):
-            objeto.acelerar()
+            player.acelerar()
             
-            print("la velocidad del vehiculo es: "+objeto.velocidad.__str__())
+            print("la velocidad del vehiculo es: "+player.velocidad.__str__())
         if(event.type == pygame.KEYDOWN and event.key == pygame.K_s):
-            objeto.frenar()
+            player.frenar()
             
-            print("la velocidad del vehiculo es: "+objeto.velocidad.__str__())
+            print("la velocidad del vehiculo es: "+player.velocidad.__str__())
 
-        ventana.fill((255,255,255))
-        ventana.blit(carretera,(fondo.velocidad,0))
-        ventana.blit(autito,(objeto.lat,objeto.lon))
-    fondo.velocidad -= (objeto.velocidad/5)
+    ventana.fill((255,255,255))
+    ventana.blit(carretera,(fondo.velocidad,0))
+    ventana.blit(autito,(player.lat,player.lon))
+    ventana.blit(autito2,(enemigo.lat,enemigo.lon))
+    fondo.velocidad -= (player.velocidad/5)
+    enemigo.lat -= (player.velocidad/4)
+    if(enemigo.lat<-10):
+        enemigo.lat=800
     pygame.display.update()
             
     if(fondo.velocidad<-300):
